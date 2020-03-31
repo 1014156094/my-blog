@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "dayjs": "^1.8.21"
+  }
+}

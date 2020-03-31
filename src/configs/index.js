@@ -1,0 +1,1 @@
+export const errnoOK = 0 // 接口响应成功

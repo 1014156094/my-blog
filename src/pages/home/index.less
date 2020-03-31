@@ -1,0 +1,122 @@
+.page-wrap {
+    .list {
+        width: 100%;
+
+        &__item {
+            position: relative;
+            border: 1px solid #ebedf0;
+            padding: 16px 24px;
+            margin-bottom: 10px;
+            transition: all 0.2s linear;
+            border: 1px solid #ebedf0;
+            cursor: pointer;
+
+            &:hover {
+                background: #effbff;
+                box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
+                transform: translate3d(0, -5px 0);
+
+                .list__action{
+                    display: block;
+                }
+            }
+
+            .title {
+                color: #394d69;
+                font-size: 1.4rem;
+                font-weight: 600;
+                line-height: 1.2;
+                cursor: pointer;
+
+                &:hover {
+                    color: #48b2ff;
+                }
+            }
+
+            .description {
+                // padding: 15px 10px;
+                cursor: pointer;
+                max-height: 260px;
+                overflow: hidden;
+            }
+
+            .create-time {
+                font-size: 0.5em;
+                padding-left: 20px;
+            }
+
+            .list-item-action {
+                vertical-align: middle;
+                margin-top: 10px;
+                color: rgba(0, 0, 0, 0.45);
+
+                a {
+                    color: inherit;
+                }
+            }
+        }
+
+        &__title{
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        &__time{
+            padding-left: 20px;
+            font-size: 10px;
+        }
+
+        &__action{
+            position: absolute;
+            right: 24px;
+            bottom: 16px;
+            display: none;
+        }
+    }
+
+    .preview {
+        position: fixed;
+        width: 260px;
+        top: 104px;
+        right: 20px;
+        list-style-type: circle;
+
+        .title {
+            color: #394d69;
+            font-size: 22px;
+        }
+
+        li {
+            a {
+                color: #8590a6;
+            }
+
+            // padding-left: 16px;
+            display: block;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-left: -1px;
+
+            &:hover {
+                background: #f0f2f5;
+
+                a {
+                    color: #40a9ff;
+                }
+            }
+        }
+    }
+
+    .no-data {
+        margin-top: 26%;
+    }
+
+    .keyword {
+        font-size: 18px;
+        font-weight: bold;
+        color: #f00;
+    }
+}
