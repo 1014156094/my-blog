@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.less';
-import { Layout, Row, Col, Avatar, Divider, Icon, Tag } from 'antd'
+import './styles/common.less'
+import { Layout, Row, Col, Avatar, Divider, Tag } from 'antd'
+import { GithubOutlined, UserOutlined } from '@ant-design/icons'
 import Header from './components/header'
 
 const { Footer } = Layout
@@ -13,35 +15,35 @@ class App extends Component {
 
         <Row className="main-wrap">
           <Col span={4} className="sider-wrap">
-            <Avatar size={132} icon="user" />
-            <h2 className="my-name">七哥</h2>
-            <div className="my-desc">前端打杂人员，代码洁癖患者</div>
+            <Avatar size={132} icon={<UserOutlined />} />
+            <h2 className="my-name">姓名呀</h2>
+            <div className="my-desc">介绍呀</div>
             <ul className="home-list">
               <li>
-                <a href="https://github.com/1014156094" target="_blank">
-                  <Icon type="github" />
+                <a href="https://github.com/1014156094" rel="noopener noreferrer" target="_blank">
+                  <GithubOutlined />
                   <span>GitHub</span>
                 </a>
               </li>
               <li>
-                <a href="https://github.com/1014156094" target="_blank">
-                  <Icon type="github" />
+                <a href="https://blog.csdn.net/qq1014156094" rel="noopener noreferrer" target="_blank">
+                  <GithubOutlined />
                   <span>CSDN</span>
                 </a>
               </li>
               <li>
-                <a href="https://juejin.im/user/5acf1681f265da237f1eaf38" target="_blank">
-                  <Icon type="github" />
+                <a href="https://juejin.im/user/5acf1681f265da237f1eaf38" rel="noopener noreferrer" target="_blank">
+                  <GithubOutlined />
                   <span>掘金</span>
                 </a>
               </li>
             </ul>
-            <Divider orientation="left">热门文章</Divider>
+            {/* <Divider orientation="left">热门文章</Divider>
             <ul className="article-list">
-              <li><a href="javascript:void(0);">如何用 es6+ 写出优雅的 js 代码</a></li>
-              <li><a href="javascript:void(0);">如何用 es6+ 写出优雅的 js 代码</a></li>
-              <li><a href="javascript:void(0);">如何用 es6+ 写出优雅的 js 代码</a></li>
-            </ul>
+              <li><a href=";">如何用 es6+ 写出优雅的 js 代码</a></li>
+              <li><a href=";">如何用 es6+ 写出优雅的 js 代码</a></li>
+              <li><a href=";">如何用 es6+ 写出优雅的 js 代码</a></li>
+            </ul> */}
             <Divider orientation="left">标签</Divider>
             <Tag color="magenta">magenta</Tag>
             <Tag color="red">red</Tag>

@@ -1,38 +1,56 @@
 const { getList, getDetail, newBlog, updateBlog, delBlog } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
+// 统一的登录验证
+const loginCheck = (req) => {
+    console.log(req.session)
+    if (!req.session.username) {
+        return Promise.resolve(
+            new ErrorModel('登录失败')
+        )
+    }
+}
+
 const handleBlogRouter = (req, res) => {
     const method = req.method
-    const id = req.query.id
+    const isRESTful = /^\/api\/blog\/\d+$/.test(req.path)
 
-    if (method === 'GET' && req.path === '/api/blog/list') {
-        const author = req.query.author || ''
-        const keyword = req.query.keyword || ''
-        const result = getList(author, keyword)
+    // 获取博客列表
+    if (method === 'GET' && req.path === '/api/blog') {
+        const result = getList(req.query)
 
         return result.then(listData => {
             return new SuccessModel(listData)
         })
     }
 
-    if (method === 'GET' && req.path === '/api/blog/detail') {
-        const result = getDetail(id)
+    // 获取博客详情
+    if (method === 'GET' && isRESTful) {
+        const result = getDetail(req.query)
 
         return result.then(data => {
             return new SuccessModel(data)
         })
     }
 
-    if (method === 'POST' && req.path === '/api/blog/new') {
+    // 新增博客
+    if (method === 'POST' && req.path === '/api/blog') {
+        const loginCheckResult = loginCheck(req)
+
+        if (loginCheckResult) {
+            return loginCheckResult
+        }
+
         const resutl = newBlog(req.body)
 
         return resutl.then(data => {
             return new SuccessModel(data)
         })
     }
-
-    if (method === 'POST' && req.path === '/api/blog/update') {
-        const result = updateBlog(id, req.body)
+    
+    // 更新博客
+    if (method === 'PUT' && isRESTful) {
+        const result = updateBlog(req.body)
 
         return result.then(val => {
             if (val) {
@@ -43,8 +61,9 @@ const handleBlogRouter = (req, res) => {
         })
     }
 
-    if (method === 'POST' && req.path === '/api/blog/del') {
-        const result = delBlog(id, req.body.author)
+    // 删除博客
+    if (method === 'DELETE' && isRESTful) {
+        const result = delBlog(req.query)
 
         return result.then(val => {
             if (val) {

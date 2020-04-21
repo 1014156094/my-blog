@@ -1,15 +1,19 @@
 const { login, register } = require('../controller/user')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
+const { set } = require('../db/redis')
 
-const handleUserRouter = ({ method, body, session, path }, res) => {
+const handleUserRouter = (req, res) => {
     // 登录
-    if (method === 'POST' && path === '/api/user/login') {
-        const result = login(body)
+    if (req.method === 'POST' && req.path === '/api/user/login') {
+        const result = login(req.body)
 
         return result.then(data => {
             if (data && data.username) {
                 // 设置 session
-                // session.username = data.username
+                req.session.username = data.username
+                // 同步到 redis
+                set(req.sessionId, req.session)
+
                 return new SuccessModel(data)
             }
             return new ErrorModel('登录失败')
@@ -17,12 +21,12 @@ const handleUserRouter = ({ method, body, session, path }, res) => {
     }
 
     // 注册
-    if (method === 'POST' && path === '/api/user/register') {
-        const result = register(body)
+    if (req.method === 'POST' && req.path === '/api/user/register') {
+        const result = register(req.body)
 
         return result.then(data => {
             if (data) {
-                return new SuccessModel(body)
+                return new SuccessModel(req.body)
             }
             return new ErrorModel('注册失败')
         })

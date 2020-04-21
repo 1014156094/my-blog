@@ -1,7 +1,9 @@
 const { exec } = require('../db/mysql')
-const dayjs = require('dayjs')
 
-const getList = (author, keyword) => {
+const formatSingleQuotes = (str)=> str ? str.replace(/'/g, `\\'`) : str
+
+// 获取博客列表
+const getList = ({author = '', keyword = ''}) => {
     let sql = `select id, title, content, author, date_format(createtime, '%Y-%m-%d %H:%i:%s') as createtime from blogs where 1=1 `
 
     if (author) {
@@ -16,7 +18,8 @@ const getList = (author, keyword) => {
     return exec(sql)
 }
 
-const getDetail = (id) => {
+// 获取博客详情
+const getDetail = ({id}) => {
     const sql = `select * from blogs where id='${id}'`
 
     return exec(sql).then(rows => {
@@ -24,10 +27,11 @@ const getDetail = (id) => {
     })
 }
 
+// 新增博客
 const newBlog = (blogData = {}) => {
     const date = new Date()
     const title = blogData.title
-    const content = blogData.content
+    const content = formatSingleQuotes(blogData.content)
     const author = blogData.author
     const createTime = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getMinutes()}`
     const sql = `
@@ -42,15 +46,13 @@ const newBlog = (blogData = {}) => {
     })
 }
 
-const updateBlog = (id, blogData = {}) => {
-    const title = blogData.title
-    const content = blogData.content
-    const sql = `update blogs set title='${title}', content='${content}' where id='${id}'`
+// 更新博客
+const updateBlog = ({ id, title, content, author }) => {
+    content = formatSingleQuotes(content)
+    const sql = `update blogs set title='${title}', content='${content}', author='${author}' where id='${id}'`
 
     return exec(sql).then(updateData => {
-        console.log('updateData is ', updateData)
-
-        if (updateData.affectedRows > 0) {
+        if (updateData.affectedRows) {
             return true
         }
 
@@ -58,13 +60,12 @@ const updateBlog = (id, blogData = {}) => {
     })
 }
 
-const delBlog = (id, author) => {
-    const sql = `delete from blogs where id='${id}' and author='${author}'`
+// 删除博客
+const delBlog = ({id}) => {
+    const sql = `delete from blogs where id='${id}'`
 
     return exec(sql).then(delData => {
-        console.log('delData is ', delData)
-
-        if (delData.affectedRows > 0) {
+        if (delData.affectedRows) {
             return true
         }
 
