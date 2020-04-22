@@ -5,7 +5,7 @@ import './index.less'
 import MarkdownIt from 'markdown-it'
 import MdEditor from 'react-markdown-editor-lite'
 import { getBlogDetail } from '../../../api/blog'
-import { Spin } from 'antd'
+import { Spin, Divider } from 'antd'
 
 // 初始化Markdown解析器
 const mdParser = new MarkdownIt(/* Markdown-it options */);
@@ -40,7 +40,11 @@ class BlogDetail extends React.Component {
         return (
             <Spin spinning={this.state.isLoading}>
                 <div className="page-blog-detail">
-                    <h2>{this.state.blogDetail.title}</h2>
+                    <div className="title">
+                        <h2>{this.state.blogDetail.title}</h2>
+                        <div className="title__date">{this.state.blogDetail.createtime}</div>
+                    </div>
+                    <Divider></Divider>
                     <MdEditor
                         value={this.state.blogDetail.content}
                         renderHTML={(text) => mdParser.render(text)}

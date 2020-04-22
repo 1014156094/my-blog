@@ -1,9 +1,8 @@
-const { getList, getDetail, newBlog, updateBlog, delBlog } = require('../controller/blog')
+const { getTotal, getList, getDetail, newBlog, updateBlog, delBlog } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 // 统一的登录验证
 const loginCheck = (req) => {
-    console.log(req.session)
     if (!req.session.username) {
         return Promise.resolve(
             new ErrorModel('登录失败')
@@ -17,10 +16,18 @@ const handleBlogRouter = (req, res) => {
 
     // 获取博客列表
     if (method === 'GET' && req.path === '/api/blog') {
-        const result = getList(req.query)
+        let list
+        let total
 
-        return result.then(listData => {
-            return new SuccessModel(listData)
+        return getList(req.query).then((data) => {
+            list = data
+            return getTotal()
+        }).then((data) => {
+            total = data
+            return new SuccessModel({
+                list,
+                total
+            })
         })
     }
 
@@ -47,7 +54,7 @@ const handleBlogRouter = (req, res) => {
             return new SuccessModel(data)
         })
     }
-    
+
     // 更新博客
     if (method === 'PUT' && isRESTful) {
         const result = updateBlog(req.body)

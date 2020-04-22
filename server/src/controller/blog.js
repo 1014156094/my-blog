@@ -1,26 +1,36 @@
 const { exec } = require('../db/mysql')
 
-const formatSingleQuotes = (str)=> str ? str.replace(/'/g, `\\'`) : str
+// 创建时间格式化 SQL
+const createtimeFormatSQL = `date_format(createtime, '%Y-%m-%d %H:%i:%s')`
+
+// 格式化单引号
+const singleQuotesFormat = (str) => str ? str.replace(/'/g, `\\'`) : str
+
+// 获取博客总数
+const getTotal = () => {
+    return exec(`select count(*) as total from blogs;`).then(data => {
+        return data[0].total
+    })
+}
 
 // 获取博客列表
-const getList = ({author = '', keyword = ''}) => {
-    let sql = `select id, title, content, author, date_format(createtime, '%Y-%m-%d %H:%i:%s') as createtime from blogs where 1=1 `
-
-    if (author) {
-        sql += `and author='${author}' `
-    }
+const getList = ({ keyword = '', page = 1, pageSize = 10 }) => {
+    const limitEnd = page * pageSize
+    const limitStart = limitEnd - pageSize
+    let sql = `select id, title, content, ${createtimeFormatSQL} as createtime from blogs where 1=1 `
 
     if (keyword) {
         sql += `and title like '%${keyword}%' `
     }
 
-    sql += `order by createtime desc;`
+    sql += `order by createtime desc limit ${limitStart},${limitEnd};`
+
     return exec(sql)
 }
 
 // 获取博客详情
-const getDetail = ({id}) => {
-    const sql = `select * from blogs where id='${id}'`
+const getDetail = ({ id }) => {
+    const sql = `select *, ${createtimeFormatSQL} as createtime from blogs where id='${id}'`
 
     return exec(sql).then(rows => {
         return rows[0]
@@ -31,12 +41,11 @@ const getDetail = ({id}) => {
 const newBlog = (blogData = {}) => {
     const date = new Date()
     const title = blogData.title
-    const content = formatSingleQuotes(blogData.content)
-    const author = blogData.author
-    const createTime = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getMinutes()}`
+    const content = singleQuotesFormat(blogData.content)
+    const createTime = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getMinutes()}`
     const sql = `
-        insert into blogs (title, content, createtime, author)
-        values ('${title}', '${content}', '${createTime}', '${author}')
+        insert into blogs (title, content, createtime)
+        values ('${title}', '${content}', '${createTime}')
     `
 
     return exec(sql).then(insertData => {
@@ -47,9 +56,9 @@ const newBlog = (blogData = {}) => {
 }
 
 // 更新博客
-const updateBlog = ({ id, title, content, author }) => {
-    content = formatSingleQuotes(content)
-    const sql = `update blogs set title='${title}', content='${content}', author='${author}' where id='${id}'`
+const updateBlog = ({ id, title, content }) => {
+    content = singleQuotesFormat(content)
+    const sql = `update blogs set title='${title}', content='${content}' where id='${id}'`
 
     return exec(sql).then(updateData => {
         if (updateData.affectedRows) {
@@ -61,7 +70,7 @@ const updateBlog = ({ id, title, content, author }) => {
 }
 
 // 删除博客
-const delBlog = ({id}) => {
+const delBlog = ({ id }) => {
     const sql = `delete from blogs where id='${id}'`
 
     return exec(sql).then(delData => {
@@ -74,6 +83,7 @@ const delBlog = ({id}) => {
 }
 
 module.exports = {
+    getTotal,
     getList,
     getDetail,
     newBlog,

@@ -17,7 +17,7 @@ const getPostData = (req) => {
             resolve({})
             return
         }
-
+        
         if (!(/application\/json/.test(req.headers['content-type']))) {
             resolve({})
             return
@@ -73,7 +73,7 @@ const serverHandle = (req, res) => {
         set(userId, {})
     }
     req.sessionId = userId
-
+    
     get(userId).then(sessionData => {
         if (sessionData === null) {
             // 初始化 redis 中的 session 值
@@ -89,11 +89,12 @@ const serverHandle = (req, res) => {
         return getPostData(req)
     })
         .then(postData => {
+            
             req.body = postData
 
             // 处理 blog 路由
             const blogResult = handleBlogRouter(req, res)
-
+            
             if (blogResult) {
                 blogResult.then(blogData => {
                     if (needSetCookie) {
@@ -109,7 +110,7 @@ const serverHandle = (req, res) => {
 
             // 处理 user 路由
             const userResult = handleUserRouter(req, res)
-
+            
             if (userResult) {
                 userResult.then(userData => {
                     if (needSetCookie) {

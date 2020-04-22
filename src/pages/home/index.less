@@ -74,14 +74,15 @@
 
             .rc-md-editor {
                 border: 0 !important;
-            }
 
-            .tool-bar {
-                display: none !important;
-            }
+                .tool-bar {
+                    display: none !important;
 
-            .html-wrap{
-                padding: 0 !important;
+                }
+
+                .html-wrap {
+                    padding: 0 !important;
+                }
             }
         }
 
@@ -100,23 +101,28 @@
         bottom: 0;
         left: 1224px;
 
-        .ant-divider{
+        .ant-divider {
             margin-top: 0;
         }
 
         &__list-item {
             cursor: pointer;
             line-height: 28px;
-            color: #8590a6;
             transition: all 0.2s linear;
-            padding: 0 8px;
 
-            &:hover {
-                color: #40a9ff;
-                background: #effbff;
-                box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
-                transform: translate3d(0, -5px 0);
+            a {
+                display: block;
+                padding: 0 8px;
+                color: #8590a6;
+
+                &:hover {
+                    color: #40a9ff;
+                    background: #effbff;
+                    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
+                    transform: translate3d(0, -5px 0);
+                }
             }
+
         }
     }
 

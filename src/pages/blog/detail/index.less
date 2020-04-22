@@ -1,5 +1,31 @@
 .page-blog-detail {
-    .tool-bar {
-        display: none !important;
+    .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        h2 {
+            margin-bottom: 0;
+            font-size: 24px;
+        }
+
+        &__date {
+            margin-left: 20px;
+            font-size: 10px;
+        }
+    }
+
+    .rc-md-editor {
+        border: 0 !important;
+
+        .tool-bar {
+            display: none !important;
+
+        }
+
+        .html-wrap {
+            padding: 0 !important;
+        }
     }
 }

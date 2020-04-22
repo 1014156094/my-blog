@@ -43,7 +43,6 @@ class BlogEdit extends React.Component {
         }).then(({ data }) => {
             this.formRef.current.setFieldsValue({
                 title: data.data.title,
-                author: data.data.author,
             });
             this.setState({
                 blogContent: data.data.content
@@ -62,7 +61,6 @@ class BlogEdit extends React.Component {
             id: this.state.isEditMode ? this.state.blogId : undefined,
             title: values.title,
             content: this.state.blogContent,
-            author: values.author,
         }).then(res => {
             if (res.data.errno === 0) {
                 message.success('提交成功');
@@ -92,14 +90,6 @@ class BlogEdit extends React.Component {
         return (
             <div className="page-blog-edit">
                 <Form {...layout} ref={this.formRef} onFinish={this.handleSubmit}>
-                    <Form.Item
-                        label="博客作者"
-                        name="author"
-                        rules={[{ required: true, message: '请输入博客作者' }]}
-                        hasFeedback
-                    >
-                        <Input placeholder="请输入博客作者" />
-                    </Form.Item>
                     <Form.Item
                         label="博客标题"
                         name="title"

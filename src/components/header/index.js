@@ -62,7 +62,7 @@ class Header extends React.Component {
             <header className="header">
                 <Row>
                     <Col span={4}>
-                        <div className="header__title">LOGO 呀</div>
+                        <div className="header__title">小七哥的博客</div>
                     </Col>
                     <Col span={20}>
                         <Divider type="vertical" />
@@ -77,16 +77,19 @@ class Header extends React.Component {
                                     <Button type="primary">
                                         <Link to="/blog">
                                             写博客
-                                    </Link>
+                                        </Link>
                                     </Button> :
-                                    <>
-                                        <Button onClick={() => this.setState({ isShowLoginModal: true })} type="primary">
-                                            登录
+                                    (
+                                        this.props.location.pathname === '/blog' &&
+                                        <>
+                                            <Button onClick={() => this.setState({ isShowLoginModal: true })} type="primary">
+                                                登录
                                         </Button>
-                                        <Button onClick={() => this.setState({ isShowRegisterModal: true })}>
-                                            注册
+                                            <Button onClick={() => this.setState({ isShowRegisterModal: true })}>
+                                                注册
                                         </Button>
-                                    </>
+                                        </>
+                                    )
                             }
 
                         </div>

@@ -12,8 +12,8 @@ export default class IRouter extends React.Component {
         return (
             <BrowserRouter>
                 <Provider store={store}>
-                    <App>
-                        <Switch>
+                    <Switch>
+                        <App>
                             <Route path="/" render={() =>
                                 <Switch>
                                     <Route path="/home" component={Home} />
@@ -23,8 +23,8 @@ export default class IRouter extends React.Component {
                                     <Redirect to="/home" />
                                 </Switch>
                             } />
-                        </Switch>
-                    </App>
+                        </App>
+                    </Switch>
                 </Provider >
             </BrowserRouter>
         )
