@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js"
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js",
+    "prd": "cross-env NODE_ENV=production pm2 start pm2.conf.json"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
