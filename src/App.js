@@ -17,7 +17,7 @@ class App extends Component {
           <Col span={4} className="sider-wrap">
             <Avatar size={132} src={require('./static/images/my-avatar.jpg')} />
             <h2 className="my-name">小七哥</h2>
-            <div className="my-desc">前端打杂人员</div>
+            <div className="my-desc">大家好，我是前端打杂人员</div>
             <ul className="home-list">
               <li>
                 <a href="https://github.com/1014156094" rel="noopener noreferrer" target="_blank">
@@ -38,6 +38,10 @@ class App extends Component {
                 </a>
               </li>
             </ul>
+            <p>
+              友情链接：
+              暂无，欢迎交换友情链接~
+            </p>
             {/* <Divider orientation="left">热门文章</Divider>
             <ul className="article-list">
               <li><a href=";">如何用 es6+ 写出优雅的 js 代码</a></li>

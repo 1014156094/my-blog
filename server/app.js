@@ -1,6 +1,7 @@
 const querystring = require('querystring')
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
+const handleGuestbookRouter = require('./src/router/guestbook')
 const { get, set } = require('./src/db/redis')
 
 // 获取 cookie 的过期时间
@@ -119,6 +120,22 @@ const serverHandle = (req, res) => {
 
                     res.end(
                         JSON.stringify(userData)
+                    )
+                })
+                return
+            }
+
+            // 处理 guestbook 路由
+            const guestbookResult = handleGuestbookRouter(req, res)
+            
+            if (guestbookResult) {
+                guestbookResult.then(guestbookData => {
+                    if (needSetCookie) {
+                        res.setHeader('Set-Cookie', `userid=${userId}; path=/; httpOnly; expires=${getCookieExpires()}`)
+                    }
+
+                    res.end(
+                        JSON.stringify(guestbookData)
                     )
                 })
                 return
