@@ -62,7 +62,7 @@ class Header extends React.Component {
             <header className="header">
                 <Row>
                     <Col span={4}>
-                        <div className="header__title">小七哥的博客</div>
+                        <Link to="/" className="header__title">小七哥的博客</Link>
                     </Col>
                     <Col span={20}>
                         <Divider type="vertical" />

@@ -21,19 +21,19 @@ class App extends Component {
             <ul className="home-list">
               <li>
                 <a href="https://github.com/1014156094" rel="noopener noreferrer" target="_blank">
-                <GithubOutlined />
+                  <GithubOutlined />
                   <span>GitHub</span>
                 </a>
               </li>
               <li>
                 <a href="https://blog.csdn.net/qq1014156094" rel="noopener noreferrer" target="_blank">
-                  <img src={require('./static/images/csdn.jpg')} className="home-list__logo"/>
+                  <img src={require('./static/images/csdn.jpg')} className="home-list__logo" />
                   <span>CSDN</span>
                 </a>
               </li>
               <li>
                 <a href="https://segmentfault.com/" rel="noopener noreferrer" target="_blank">
-                  <img src={require('./static/images/segment-fault.jpg')} className="home-list__logo"/>
+                  <img src={require('./static/images/segment-fault.jpg')} className="home-list__logo" />
                   <span>SegmentFault</span>
                 </a>
               </li>
