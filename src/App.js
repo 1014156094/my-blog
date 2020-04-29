@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.less';
 import './styles/common.less'
-import { Layout, Row, Col, Avatar, Divider, Tag } from 'antd'
+import { Layout, Row, Col, Avatar } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
 import Header from './components/header'
 
@@ -16,7 +16,7 @@ class App extends Component {
         <Row className="main-wrap">
           <Col span={4} className="sider-wrap">
             <Avatar size={132} src={require('./static/images/my-avatar.jpg')} />
-            <h2 className="my-name">小七哥</h2>
+            <h1 className="my-name">小七哥</h1>
             <div className="my-desc">大家好，我是前端打杂人员</div>
             <ul className="homes">
               <li>
