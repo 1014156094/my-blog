@@ -99,6 +99,11 @@ class Header extends React.Component {
                                     首页
                                 </Link>
                             </Menu.Item>
+                            <Menu.Item key="开源组件">
+                                <Link to="/arsenal">
+                                    开源组件
+                                </Link>
+                            </Menu.Item>
                             <Menu.Item key="给作者留言">
                                 <Link to="/guestbook">
                                     给作者留言
