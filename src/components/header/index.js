@@ -100,7 +100,7 @@ class Header extends React.Component {
                                 </Link>
                             </Menu.Item>
                             <Menu.Item key="开源组件">
-                                <a href="http://127.0.0.1/arsenal" target="_blank" rel="noopener noreferrer">
+                                <a href="http://lrp.ink/arsenal" target="_blank" rel="noopener noreferrer">
                                     开源组件
                                 </a>
                             </Menu.Item>
